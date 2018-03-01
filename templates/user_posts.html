@@ -11,10 +11,10 @@
 	            <div class='col-sm-6'>
 	                <div class="panel panel-default" style="padding:10px">
                         <p class='lead'>{{ post.name }}</p>
-		                <p>{{ post.description }}</p>
+		                <p>{{ post.description|safe }}</p>
                         <br>
-                        <p>Author: {{ post.created_by }}</p>
-                        <p>Created: {{ post.created }}, last changes {{ post.updated }}</p>
+                        <p class="text-right">Author: {{ post.created_by }}</p>
+                        <p class="text-right">Created: {{ post.created }}, last changes {{ post.updated }}</p>
                     </div>
                 </div>
             {% endif %}

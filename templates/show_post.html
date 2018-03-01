@@ -8,7 +8,7 @@
         {% if post %}
             {% if post.published %}
 	            <div class='col-sm-12'>
-		                <p>{{ post.description }}</p>
+		                {{ post.description|safe }}
                         <br>
                         <p class="text-right">Author: {{ post.created_by }}</p>
                         <p class="text-right">Created: {{ post.created }}, last changes {{ post.updated }}</p>
