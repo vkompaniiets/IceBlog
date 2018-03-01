@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+
+{% block title %}{% if edit %}Edit{% else %}Add{% endif %} post{% endblock %}
+
+{% block content %}
+    <h2 align="center">{% if edit %}Edit{% else %}New{% endif %} post</h2>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {% if created_by.id == user.id %}
+            <form class="form-horizontal" method="POST" action="{% if edit %}{% url "update_by_id" post_id %}{% else %}{% url "create" %}{% endif %}" style="margin-top: 40px">
+                {% csrf_token %}
+                <div class="form-group{% if errors.name %} has-error{% endif %}">
+                    <label for="name" class="col-sm-2 control-label">Post name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Post name" value="{{ form.name.value }}" />
+                    </div>
+                    <span class="text-danger">{{ errors.name|striptags }}</span>
+                </div>
+
+                <div class="form-group{% if errors.description %} has-error{% endif %}">
+                    <label for="name" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="description" id="description" placeholder="Description" rows="10"/>
+                            {{ form.description.value }}
+                        </textarea>
+                    </div>
+                    <span class="text-danger">{{ errors.description|striptags }}</span>
+                </div>
+
+
+                <div class="form-group" style="padding-left: 145px">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="published" name="published" {% if form.published.value %} checked="checked"{% endif %} > Published
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary pull-right" style="margin-left: 5px">Submit</button>
+            </form>
+            {% else %}
+                <h3>You can not edit this post</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
