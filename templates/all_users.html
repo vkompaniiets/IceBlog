@@ -8,7 +8,7 @@
             {% for user in users %}
                 <div class='col-sm-4'>
                     <div class="panel panel-default" style="padding:10px">
-                        <p class='lead'>User: {{ user.username }}</p>
+                        <p class='lead'>User: <a href="{{ user.id }}/">{{ user.username }}</a></p>
                         <p>E-mail: {{ user.email }}</p>
                     </div>
                 </div>
