@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from post.models import Post
 from post.forms import AddPostForm, UpdatePostForm
@@ -17,15 +17,14 @@ def create(request):
             Post(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
-                published=form.cleaned_data['published'],
+                is_published=form.cleaned_data['is_published'],
                 created_by=request.user
             ).save()
             return HttpResponseRedirect(reverse('all_users'))
         else:
             return TemplateResponse(request, 'edit_post.html', {'errors': form.errors})
     else:
-        users = list(User.objects.all())
-        return TemplateResponse(request, 'edit_post.html', {'users': users})
+        return TemplateResponse(request, 'edit_post.html')
 
 
 @login_required
@@ -37,10 +36,7 @@ def update_by_id(request, post_id):
             return HttpResponseRedirect(reverse('all_users'))
         return TemplateResponse(request, 'edit_post.html', {'errors': form.errors})
     else:
-        try:
-            post = Post.objects.get(id=post_id)
-        except Post.DoesNotExist:
-            raise Http404
+        post = get_object_or_404(Post, id=post_id)
 
         form = UpdatePostForm(instance=post)
         return TemplateResponse(request, 'edit_post.html',
@@ -49,8 +45,5 @@ def update_by_id(request, post_id):
 
 @login_required
 def show_by_id(request, post_id):
-    try:
-        post = Post.objects.get(id=post_id)
-    except Post.DoesNotExist:
-        raise Http404  # если пост не найден - выдать ошибку 404
+    post = get_object_or_404(Post, id=post_id, is_published=True)
     return TemplateResponse(request, 'show_post.html', {'post': post})

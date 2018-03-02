@@ -5,22 +5,18 @@
 {% block content %}
     <h2 align="center">List of all user's posts</h2>
     <br>
-        {% if posts %}
         {% for post in posts %}
-            {% if post.published %}
-	            <div class='col-sm-6'>
-	                <div class="panel panel-default" style="padding:10px">
-                        <p class='lead'>{{ post.name }}</p>
-		                <p>{{ post.description|safe }}</p>
-                        <br>
-                        <p class="text-right">Author: {{ post.created_by }}</p>
-                        <p class="text-right">Created: {{ post.created }}, last changes {{ post.updated }}</p>
-                    </div>
+            <div class='col-sm-6'>
+                <div class="panel panel-default" style="padding:10px">
+                    <p class='lead'>{{ post.name }}</p>
+                    <p>{{ post.description|safe }}</p>
+                    <br>
+                    <p class="text-right">Author: {{ post.created_by }}</p>
+                    <p class="text-right">Created: {{ post.created_at }}, last changes {{ post.updated_at }}</p>
                 </div>
-            {% endif %}
-        {% endfor %}
-        {% else %}
+            </div>
+        {% empty %}
             <p>There are no posts</p>
-        {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

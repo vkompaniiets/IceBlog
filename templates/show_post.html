@@ -5,17 +5,10 @@
 {% block content %}
     <h2 align="center">{{post.name}}</h2>
     <br>
-        {% if post %}
-            {% if post.published %}
-	            <div class='col-sm-12'>
-		                {{ post.description|safe }}
-                        <br>
-                        <p class="text-right">Author: {{ post.created_by }}</p>
-                        <p class="text-right">Created: {{ post.created }}, last changes {{ post.updated }}</p>
-                </div>
-            {% endif %}
-        {% else %}
-            <p>There are no post</p>
-        {% endif %}
+    <div class='col-sm-12'>
+            {{ post.description|safe }}
+            <br>
+            <p class="text-right">Author: {{ post.created_by }}</p>
+            <p class="text-right">Created: {{ post.created_at }}, last changes {{ post.updated_at }}</p>
     </div>
 {% endblock %}

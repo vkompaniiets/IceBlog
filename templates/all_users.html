@@ -4,16 +4,14 @@
 
 {% block content %}
     <h2 align="center">List of all users</h2>
-        {% if users %}
-            {% for user in users %}
-                <div class='col-sm-4'>
-                    <div class="panel panel-default" style="padding:10px">
-                        <p class='lead'>User: <a href="{{ user.id }}/">{{ user.username }}</a></p>
-                        <p>E-mail: {{ user.email }}</p>
-                    </div>
+        {% for user in users %}
+            <div class='col-sm-4'>
+                <div class="panel panel-default" style="padding:10px">
+                    <p class='lead'>User: <a href="{{ user.id }}/">{{ user.username }}</a></p>
+                    <p>E-mail: {{ user.email }}</p>
                 </div>
-            {% endfor %}
-        {% else %}
+            </div>
+        {% empty %}
             <p>There are no users</p>
-        {% endif %}
+        {% endfor %}
 {% endblock %}

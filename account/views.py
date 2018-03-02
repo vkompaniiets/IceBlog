@@ -38,7 +38,7 @@ def show_all_users(request):
 
 @login_required
 def detail(request, user_id):
-    posts = Post.objects.filter(created_by=user_id)
+    posts = Post.objects.filter(created_by=user_id, is_published=True)
 
     return TemplateResponse(request, 'user_posts.html', {
         'posts': posts
